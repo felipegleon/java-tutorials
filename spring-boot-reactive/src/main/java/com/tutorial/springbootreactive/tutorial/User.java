@@ -1,4 +1,4 @@
-package com.tutorial.springbootreactive.model;
+package com.tutorial.springbootreactive.tutorial;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

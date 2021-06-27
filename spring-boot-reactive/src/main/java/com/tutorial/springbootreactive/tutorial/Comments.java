@@ -1,4 +1,4 @@
-package com.tutorial.springbootreactive.model;
+package com.tutorial.springbootreactive.tutorial;
 
 import java.util.ArrayList;
 import java.util.List;
