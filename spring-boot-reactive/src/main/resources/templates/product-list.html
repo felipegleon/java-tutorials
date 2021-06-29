@@ -5,8 +5,10 @@
         <title th:text="${title}">Title</title>
     </head>
     <body>
+        <div th:if="${param.error != null}" th:text="${param.error}"></div>
+        <div th:if="${param.success != null}" th:text="${param.success}"></div>
         <h1 th:text="${title}"></h1>
-
+        <a th:href="@{/product-form}">Create +</a>
         <table>
             <thead>
                 <tr>
@@ -14,14 +16,18 @@
                     <th>Name</th>
                     <th>Price</th>
                     <th>Created At</th>
+                    <th>Edit</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="product = ${products}">
+                <tr th:each="product: ${products}">
                     <td th:text="${product.id}"></td>
                     <td th:text="${product.name}"></td>
                     <td th:text="${product.price}"></td>
                     <td th:text="${product.createdAt}"></td>
+                    <td> <a th:href="@{/product-form-v2/} + ${product.id}">Edit</a> </td>
+                    <td> <a th:href="@{/delete-product/} + ${product.id}"
+                            onclick="return confirm('Are you sure of delete this product?');">Delete</a> </td>
                 </tr>
             </tbody>
         </table>

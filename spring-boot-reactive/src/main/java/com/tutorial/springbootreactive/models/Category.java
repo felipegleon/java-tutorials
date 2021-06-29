@@ -5,26 +5,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.format.annotation.DateTimeFormat;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
 
-@Document(collection= "products")
+import javax.validation.constraints.NotEmpty;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+@Document(collection = "categories")
+public class Category {
 
     @Id
     private String id;
     @NotEmpty
     private String name;
-    @NotNull
-    private Double price;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date createdAt;
-    @NotNull
-    private Category category;
-
 }
