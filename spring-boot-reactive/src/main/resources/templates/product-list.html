@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
     <head>
         <meta charset="UTF-8">
-        <title th:text="${title}">Title</title>
+        <title>Tutorial WebFlux</title>
     </head>
     <body>
         <div th:if="${param.error != null}" th:text="${param.error}"></div>
@@ -16,6 +16,7 @@
                     <th>Name</th>
                     <th>Price</th>
                     <th>Created At</th>
+                    <th>Category</th>
                     <th>Edit</th>
                 </tr>
             </thead>
@@ -25,6 +26,7 @@
                     <td th:text="${product.name}"></td>
                     <td th:text="${product.price}"></td>
                     <td th:text="${product.createdAt}"></td>
+                    <td th:text="${product.category.name}"></td>
                     <td> <a th:href="@{/product-form-v2/} + ${product.id}">Edit</a> </td>
                     <td> <a th:href="@{/delete-product/} + ${product.id}"
                             onclick="return confirm('Are you sure of delete this product?');">Delete</a> </td>

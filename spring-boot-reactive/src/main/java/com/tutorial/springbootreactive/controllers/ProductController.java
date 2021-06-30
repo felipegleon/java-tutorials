@@ -1,6 +1,8 @@
 package com.tutorial.springbootreactive.controllers;
 
+import com.tutorial.springbootreactive.models.Category;
 import com.tutorial.springbootreactive.models.Product;
+import com.tutorial.springbootreactive.services.CategoryService;
 import com.tutorial.springbootreactive.services.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -27,6 +26,14 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @ModelAttribute("categories")
+    public Flux<Category> findAllCategories () {
+        return categoryService.findAllCategories();
+    }
 
     @GetMapping("/product-form")
     public Mono<String> createProduct(Model model){
@@ -73,10 +80,14 @@ public class ProductController {
             model.addAttribute("button", "Save");
             return Mono.just("product-form");
         }
-        if(product.getCreatedAt() == null) product.setCreatedAt(new Date());
         sessionStatus.setComplete();
-        return productService.saveProduct(product)
-                .doOnNext(p -> LOG.info("Product saved: " + p.getName() + " Id: " + p.getId()))
+
+        Mono<Category> categoryMono = categoryService.findCategoryById(product.getCategory().getId());
+        return categoryMono.flatMap(category -> {
+            if(product.getCreatedAt() == null) product.setCreatedAt(new Date());
+            product.setCategory(category);
+            return productService.saveProduct(product);
+        }).doOnNext(p -> LOG.info("Product saved: " + p.getName() + " Id: " + p.getId()))
                 .thenReturn("redirect:/product-list?success=Product+saved+successfully");
     }
 

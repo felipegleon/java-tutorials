@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
     <head>
         <meta charset="UTF-8">
-        <title th:text="${title}">Title</title>
+        <title>Tutorial WebFlux</title>
     </head>
     <body>
         <h1 th:text="${title}"></h1>
@@ -23,6 +23,18 @@
                 <div>
                     <label for="createdAt">Created At</label>
                     <div><input type="date" th:field="*{createdAt}"></div>
+                </div>
+                <div>
+                    <label for="category.id">Category</label>
+                    <div>
+                        <select th:field="*{category.id}">
+                        <option value="">-- Select category --</option>
+                        <option th:each="category: ${categories}" th:value="${category.id}"
+                                th:text="${category.name}">
+                        </option>
+                    </select>
+                        <small th:if="${#fields.hasErrors('category.id')}" th:errors="*{category.id}"></small>
+                    </div>
                 </div>
                 <div>
                     <div><input type="submit" th:value="${button}"></div>

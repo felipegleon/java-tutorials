@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Tutorial WebFlux</title>
+    </head>
+    <body>
+        <div th:if="${param.error != null}" th:text="${param.error}"></div>
+        <div th:if="${param.success != null}" th:text="${param.success}"></div>
+        <h1 th:text="${title}"></h1>
+        <a th:href="@{/category-form}">Create +</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="category: ${categories}">
+                    <td th:text="${category.id}"></td>
+                    <td th:text="${category.name}"></td>
+                    <td> <a th:href="@{/category-form/} + ${category.id}">Edit</a> </td>
+                    <td> <a th:href="@{/delete-category/} + ${category.id}"
+                            onclick="return confirm('Are you sure of delete this category?');">Delete</a> </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -15,7 +15,7 @@ import javax.validation.constraints.NotEmpty;
 public class Category {
 
     @Id
-    private String id;
     @NotEmpty
+    private String id;
     private String name;
 }
