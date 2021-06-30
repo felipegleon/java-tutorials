@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Tutorial WebFlux</title>
+    </head>
+    <body>
+        <h1 th:text="${title}"></h1>
+        <a th:href="@{/product-list}"><- Back</a>
+        <div th:if="${product.image != null && #strings.length(product.image) > 0}">
+            <img th:src="@{/upload/img/} + ${product.image}" th:alt="${product.name}" style="max-width: 25%;">
+        </div>
+        <div>
+            <ul>
+                <li th:text="${product.name}"></li>
+                <li th:text="'Id: ' + ${product.id}"></li>
+                <li th:text="'Price: ' + ${#numbers.formatCurrency(product.price)}"></li>
+                <li th:text="'Created At: ' + ${#calendars.format(product.createdAt, 'dd/MM/yyyy')}"></li>
+
+            </ul>
+        </div>
+
+    </body>
+</html>

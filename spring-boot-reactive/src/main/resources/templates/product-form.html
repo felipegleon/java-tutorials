@@ -8,8 +8,9 @@
         <h1 th:text="${title}"></h1>
         <div>
             <a th:href="@{/product-list}"><- Back</a>
-            <form th:action="@{/product-form}" method="post" th:object="${product}">
+            <form th:action="@{/product-form}" method="post" th:object="${product}" enctype="multipart/form-data">
                 <input th:if="${product.id != null}" type="hidden" th:field="*{id}">
+                <input th:if="${product.image != null}" type="hidden" th:field="*{image}">
                 <div>
                     <label for="name">Name</label>
                     <div><input type="text" th:field="*{name}"></div>
@@ -35,6 +36,10 @@
                     </select>
                         <small th:if="${#fields.hasErrors('category.id')}" th:errors="*{category.id}"></small>
                     </div>
+                </div>
+                <div>
+                    <label for="file">Image</label>
+                    <div><input type="file" name="file"></div>
                 </div>
                 <div>
                     <div><input type="submit" th:value="${button}"></div>

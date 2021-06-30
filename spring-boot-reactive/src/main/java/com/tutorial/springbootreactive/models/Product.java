@@ -28,5 +28,6 @@ public class Product {
     private Date createdAt;
     @Valid
     private Category category;
+    private String image;
 
 }
