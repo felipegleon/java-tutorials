@@ -25,6 +25,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Mono<Product> findByName(String name) { return productRepository.findById(name); }
+
+    @Override
     public Mono<Product> saveProduct(Product product) {
         return productRepository.save(product);
     }
@@ -33,6 +36,5 @@ public class ProductServiceImpl implements ProductService {
     public Mono<Void> deleteProduct(Product product) {
         return productRepository.delete(product);
     }
-
 
 }
